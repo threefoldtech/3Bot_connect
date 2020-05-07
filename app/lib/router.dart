@@ -89,15 +89,25 @@ class Router {
   List<Container> getAppButtons() {
     List<Container> iconButtons = [];
     routes.forEach((r) {
-      iconButtons.add(Container(
+      iconButtons.add(
+        Container(
           padding: EdgeInsets.all(0.0),
           child: Tab(
-            icon: Icon(
-              r.route.icon,
-              size: 20,
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  r.route.icon,
+                  size: 25,
+                ),
+                Text(
+                  r.route.name,
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                ),
+              ],
             ),
-            text: r.route.name,
-          )));
+          ),
+        ),
+      );
     });
     return iconButtons;
   }

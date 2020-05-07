@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -37,6 +38,15 @@ class _HomeScreenState extends State<HomeScreen>
   bool pinCheckOpen = false;
   int lastCheck = 0;
   final int pinCheckTimeout = 60000 * 5;
+  final BoxDecoration tfGradient = const BoxDecoration(
+    gradient: LinearGradient(colors: [
+      Color(0xff73E5C0),
+      Color(0xff68C5D5),
+    ], stops: [
+      0.0,
+      0.1
+    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+  );
 
   _HomeScreenState() {
     _tabController = TabController(
@@ -189,17 +199,20 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             bottomNavigationBar: Container(
-              color: HexColor("#2d4052"), //@todo theme obj
-              padding: EdgeInsets.all(0.0),
-              height: 65,
-              margin: EdgeInsets.all(0.0),
-              child: TabBar(
-                controller: _tabController,
-                isScrollable: false,
-                indicatorSize: TabBarIndicatorSize.tab,
-                tabs: Globals().router.getAppButtons(),
-                labelPadding: EdgeInsets.all(0.0),
-                indicatorPadding: EdgeInsets.all(0.0),
+              decoration: tfGradient,
+              height: 70,
+              child: Container(
+                margin: EdgeInsets.only(top: 7.0),
+                padding: EdgeInsets.only(top: 7.0),
+                color: Theme.of(context).primaryColor,
+                child: TabBar(
+                  unselectedLabelColor: Colors.white60,
+                  labelColor: Color(0xff6BCED0),
+                  indicatorColor: Colors.transparent,
+                  controller: _tabController,
+                  isScrollable: false,
+                  tabs: Globals().router.getAppButtons()
+                ),
               ),
             ),
           ),
