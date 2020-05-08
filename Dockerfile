@@ -8,10 +8,6 @@ COPY example /example
 WORKDIR /example
 RUN npm ci && npm run build
 
-COPY wizard /wizard
-WORKDIR /wizard
-RUN npm ci && npm run build
-
 FROM nginx
 COPY backend/requirements.txt requirements.txt
 
@@ -24,7 +20,6 @@ RUN pip3 install gevent
 
 COPY --from=builder /frontend/dist /var/www/html/frontend
 COPY --from=builder /example/dist /var/www/html/example
-COPY --from=builder /wizard/dist /var/www/html/wizard
 COPY backend/ /usr/share/nginx/backend
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
