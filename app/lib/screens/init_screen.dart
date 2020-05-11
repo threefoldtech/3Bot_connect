@@ -28,7 +28,7 @@ class _InitState extends State<InitScreen> {
   _InitState() {
     iaWebView = InAppWebView(
       initialUrl:
-          '$threeBotFrontEndUrl/wizard?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString(),
+          threeBotFrontEndUrl + 'wizard?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString(),
       initialHeaders: {},
       initialOptions: InAppWebViewWidgetOptions(
         android: AndroidInAppWebViewOptions(supportMultipleWindows: true),
