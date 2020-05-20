@@ -61,10 +61,12 @@ class _MobileRegistrationScreenState extends State<MobileRegistrationScreen> {
   }
 
   checkEmail() async {
-    bool emailValid = validateEmail(emailController.text);
+    String email = emailController.text.toLowerCase().trim();
+
+    bool emailValid = validateEmail(email);
     setState(() {
       if (emailValid) {
-        _registrationData.email = emailController.text;
+        _registrationData.email = email;
         state = _State.SeedPhrase;
       } else {
         errorStepperText = "Please enter a valid email.";

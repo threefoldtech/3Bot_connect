@@ -85,7 +85,7 @@ Future<Response> finishRegistration(
       body: json.encode({
         'doubleName': doubleName + '.3bot',
         'sid': sid,
-        'email': email,
+        'email': email.toLowerCase().trim(),
         'public_key': publicKey,
       }),
       headers: requestHeaders);

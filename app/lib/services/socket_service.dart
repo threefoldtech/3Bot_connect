@@ -93,6 +93,8 @@ class BackendConnection {
 
 Future emailVerification(BuildContext context) async {
   Map<String, Object> email = await getEmail();
+  String emailLowered = email["email"].toString();
+
   if (email['email'] != null) {
     String doubleName = (await getDoubleName()).toLowerCase();
     Response response = await getSignedEmailIdentifierFromOpenKYC(doubleName);
@@ -108,8 +110,10 @@ Future emailVerification(BuildContext context) async {
     if (signedEmailIdentifier != null && signedEmailIdentifier.isNotEmpty) {
       Map<String, dynamic> vsei = jsonDecode((await verifySignedEmailIdentifier(signedEmailIdentifier)).body);
 
-      if (vsei != null && vsei["email"] == email["email"] && vsei["identifier"] == doubleName) {
-        await saveEmail(vsei["email"], signedEmailIdentifier);
+      String vseiEmail = vsei["email"].toString().toLowerCase().trim();
+
+      if (vsei != null && vseiEmail == emailLowered && vsei["identifier"] == doubleName) {
+        await saveEmail(vseiEmail, signedEmailIdentifier);
         showDialog(
           context: context,
           builder: (BuildContext context) => CustomDialog(
@@ -127,7 +131,7 @@ Future emailVerification(BuildContext context) async {
           ),
         );
       } else {
-        await saveEmail(email["email"], null);
+        await saveEmail(emailLowered, null);
       }
     }
   }
