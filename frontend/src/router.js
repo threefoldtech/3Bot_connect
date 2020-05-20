@@ -23,5 +23,9 @@ export default new Router({
     path: '/error',
     name: 'error',
     component: () => import(/* webpackChunkName: "error-page" */ './views/Errorpage')
+  }, {
+    path: '/wizard',
+    name: 'wizard',
+    component: () => import(/* webpackChunkName: "wizard-page" */ './views/Wizard')
   } ]
 })

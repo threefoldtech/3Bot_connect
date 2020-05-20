@@ -24,72 +24,61 @@ class _RegisteredScreenState extends State<RegisteredScreen>
 
   bool showSettings = false;
   bool showPreference = false;
+  final tfGradient = const BoxDecoration(
+    borderRadius: BorderRadius.all(Radius.circular(50)),
+    gradient: LinearGradient(colors: [
+      Color(0xff73E5C0),
+      Color(0xff68C5D5),
+    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        SizedBox(height: 10.0),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 200.0,
-              height: 200.0,
+        Expanded(
+          child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
                 image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage('assets/logo.png')),
+                  image: AssetImage("assets/intro.png"),
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            SizedBox(height: 10.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  'assets/newLogo.png',
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    "Bot Connect",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              child: null),
         ),
         Column(
           children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: new EdgeInsets.all(10.0),
+                padding: new EdgeInsets.all(40.0),
                 child: Text("Threefold News Circles",
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
+                SizedBox(
+                  width: 10,
+                ),
                 Column(
                   children: <Widget>[
                     FloatingActionButton(
                       heroTag: "tft",
-                      backgroundColor: Colors.redAccent,
                       elevation: 0,
-                      child: CircleAvatar(
-                        backgroundImage: ExactAssetImage(
-                            'assets/circle_images/tftokens.jpg'),
-                        minRadius: 90,
-                        maxRadius: 150,
+                      child: Container(
+                        decoration: tfGradient,
+                        padding: EdgeInsets.all(5.0),
+                        child: CircleAvatar(
+                          backgroundImage: ExactAssetImage(
+                              'assets/circle_images/tftokens.jpg'),
+                          minRadius: 90,
+                          maxRadius: 150,
+                        ),
                       ),
                       onPressed: () {
                         Events().emit(FfpBrowseEvent(
@@ -109,11 +98,15 @@ class _RegisteredScreenState extends State<RegisteredScreen>
                       heroTag: "tfnews",
                       backgroundColor: Colors.greenAccent,
                       elevation: 0,
-                      child: CircleAvatar(
-                        backgroundImage: ExactAssetImage(
-                            'assets/circle_images/tffamily.jpg'),
-                        minRadius: 90,
-                        maxRadius: 150,
+                      child: Container(
+                        decoration: tfGradient,
+                        padding: EdgeInsets.all(5.0),
+                        child: CircleAvatar(
+                          backgroundImage: ExactAssetImage(
+                              'assets/circle_images/tffamily.jpg'),
+                          minRadius: 90,
+                          maxRadius: 150,
+                        ),
                       ),
                       onPressed: () {
                         Events().emit(FfpBrowseEvent(
@@ -133,11 +126,15 @@ class _RegisteredScreenState extends State<RegisteredScreen>
                       heroTag: "tfgrid",
                       backgroundColor: Colors.blueAccent,
                       elevation: 0,
-                      child: CircleAvatar(
-                        backgroundImage:
-                            ExactAssetImage('assets/circle_images/tfgrid.jpg'),
-                        minRadius: 90,
-                        maxRadius: 150,
+                      child: Container(
+                        decoration: tfGradient,
+                        padding: EdgeInsets.all(5.0),
+                        child: CircleAvatar(
+                          backgroundImage: ExactAssetImage(
+                              'assets/circle_images/tfgrid.jpg'),
+                          minRadius: 90,
+                          maxRadius: 150,
+                        ),
                       ),
                       onPressed: () {
                         Events().emit(FfpBrowseEvent(
@@ -157,11 +154,15 @@ class _RegisteredScreenState extends State<RegisteredScreen>
                       heroTag: "ffnation",
                       backgroundColor: Colors.grey,
                       elevation: 0,
-                      child: CircleAvatar(
-                        backgroundImage: ExactAssetImage(
-                            'assets/circle_images/ffnation.jpg'),
-                        minRadius: 90,
-                        maxRadius: 150,
+                      child: Container(
+                        decoration: tfGradient,
+                        padding: EdgeInsets.all(5.0),
+                        child: CircleAvatar(
+                          backgroundImage: ExactAssetImage(
+                              'assets/circle_images/ffnation.jpg'),
+                          minRadius: 90,
+                          maxRadius: 150,
+                        ),
                       ),
                       onPressed: () {
                         Events().emit(FfpBrowseEvent(
@@ -181,11 +182,15 @@ class _RegisteredScreenState extends State<RegisteredScreen>
                       heroTag: "3bot",
                       backgroundColor: Colors.orangeAccent,
                       elevation: 0,
-                      child: CircleAvatar(
-                        backgroundImage:
-                            ExactAssetImage('assets/circle_images/3bot.jpg'),
-                        minRadius: 90,
-                        maxRadius: 150,
+                      child: Container(
+                        decoration: tfGradient,
+                        padding: EdgeInsets.all(5.0),
+                        child: CircleAvatar(
+                          backgroundImage:
+                              ExactAssetImage('assets/circle_images/3bot.jpg'),
+                          minRadius: 90,
+                          maxRadius: 150,
+                        ),
                       ),
                       onPressed: () {
                         Events().emit(FfpBrowseEvent(
@@ -198,25 +203,14 @@ class _RegisteredScreenState extends State<RegisteredScreen>
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(
-                    "More functionality will be added soon.",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
+                SizedBox(
+                  width: 10,
                 ),
               ],
             ),
           ],
         ),
+        SizedBox(height: 50.0),
       ],
     );
   }

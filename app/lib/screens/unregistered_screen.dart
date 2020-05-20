@@ -34,7 +34,7 @@ class _UnregisteredScreenState extends State<UnregisteredScreen>
   Future<void> startRecovery() async {
     final bool registered = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => RecoverScreen()));
-    if (registered != null && registered) { 
+    if (registered != null && registered) {
       await Navigator.push(
           context,
           MaterialPageRoute(
@@ -52,6 +52,18 @@ class _UnregisteredScreenState extends State<UnregisteredScreen>
 
   @override
   Widget build(BuildContext context) {
+    final BoxDecoration tfGradient = const BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(10),
+      ),
+      gradient: LinearGradient(colors: [
+        Color(0xff73E5C0),
+        Color(0xff68C5D5),
+      ], stops: [
+        0.0,
+        0.1
+      ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+    );
     return Material(
       child: WillPopScope(
         child: Container(
@@ -65,97 +77,72 @@ class _UnregisteredScreenState extends State<UnregisteredScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 200.0,
-                      height: 200.0,
+                Expanded(
+                  child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        shape: BoxShape.circle,
                         image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/logo.png')),
+                          image: AssetImage("assets/intro.png"),
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/newLogo.png',
-                          height: 40,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            "Bot Connect",
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                      child: null),
                 ),
                 IntrinsicWidth(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('Welcome to 3Bot Connect.',
+                      Text('A digital world with you',
                           style: TextStyle(fontSize: 24, color: Colors.black)),
-                      SizedBox(height: 10),
-                      RaisedButton(
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30),
+                      Text('at the center',
+                          style: TextStyle(fontSize: 24, color: Colors.black)),
+                      SizedBox(height: 50),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10.0),
+                        decoration: tfGradient,
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: RaisedButton(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(7),
+                          ),
+                          color: Theme.of(context).primaryColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Sign up',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            startRegistration();
+                          },
                         ),
-                        color: Theme.of(context).primaryColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Icon(
-                              CommunityMaterialIcons.account_edit,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 10.0),
-                            Text(
-                              'Register now',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          startRegistration();
-                        },
                       ),
-                      RaisedButton(
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10.0),
+                        decoration: tfGradient,
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: RaisedButton(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(7),
+                          ),
+                          color: Theme.of(context).primaryColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Recover account',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            startRecovery();
+                          },
                         ),
-                        color: Theme.of(context).primaryColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Icon(
-                              CommunityMaterialIcons.backup_restore,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 10.0),
-                            Text(
-                              'Recover account',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          startRecovery();
-                        },
                       ),
+                      SizedBox(height: 100),
                     ],
                   ),
                 ),

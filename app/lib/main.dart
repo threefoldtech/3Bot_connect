@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   final bool initDone;
   final String doubleName;
   final bool registered;
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

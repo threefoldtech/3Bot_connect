@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/services/user_service.dart';
 
+import '../app_config.dart';
+String threeBotFrontEndUrl = AppConfig().threeBotFrontEndUrl();
+
 class InitScreen extends StatefulWidget {
   InitScreen();
 
@@ -25,7 +28,7 @@ class _InitState extends State<InitScreen> {
   _InitState() {
     iaWebView = InAppWebView(
       initialUrl:
-          'https://wizard.jimber.org/?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString(),
+          threeBotFrontEndUrl + 'wizard?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString(),
       initialHeaders: {},
       initialOptions: InAppWebViewWidgetOptions(
         android: AndroidInAppWebViewOptions(supportMultipleWindows: true),

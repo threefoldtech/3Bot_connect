@@ -8,7 +8,6 @@ COPY example /example
 WORKDIR /example
 RUN npm ci && npm run build
 
-
 FROM nginx
 COPY backend/requirements.txt requirements.txt
 
