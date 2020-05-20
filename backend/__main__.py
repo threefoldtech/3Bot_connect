@@ -168,7 +168,7 @@ def mobile_registration_handler():
     body = request.get_json()
     double_name = body.get("doubleName").lower()
     sid = body.get("sid")
-    email = body.get("email")
+    email = body.get("email").lower().strip()
     public_key = body.get("public_key")
 
     if double_name == None or email == None or public_key == None or sid == None:
