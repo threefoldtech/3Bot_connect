@@ -110,7 +110,7 @@ Future emailVerification(BuildContext context) async {
     if (signedEmailIdentifier != null && signedEmailIdentifier.isNotEmpty) {
       Map<String, dynamic> vsei = jsonDecode((await verifySignedEmailIdentifier(signedEmailIdentifier)).body);
 
-      String vseiEmail = vsei["email"].toString().toLowerCase().trim();
+      String vseiEmail = vsei["email"].toString()?.toLowerCase()?.trim();
 
       if (vsei != null && vseiEmail == emailLowered && vsei["identifier"] == doubleName) {
         await saveEmail(vseiEmail, signedEmailIdentifier);

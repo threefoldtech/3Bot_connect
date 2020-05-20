@@ -209,7 +209,7 @@ class _RecoverScreenState extends State<RecoverScreen> {
                 setState(() {
                   _autoValidate = true;
                   doubleName = doubleNameController.text + '.3bot';
-                  emailFromForm = emailController.text.toLowerCase().trim();
+                  emailFromForm = emailController.text?.toLowerCase()?.trim();
                   seedPhrase = seedPhrasecontroller.text;
                   validateEmail(emailFromForm);
                 });

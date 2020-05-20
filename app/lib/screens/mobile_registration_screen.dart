@@ -61,7 +61,7 @@ class _MobileRegistrationScreenState extends State<MobileRegistrationScreen> {
   }
 
   checkEmail() async {
-    String email = emailController.text.toLowerCase().trim();
+    String email = emailController.text?.toLowerCase()?.trim();
 
     bool emailValid = validateEmail(email);
     setState(() {

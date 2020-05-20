@@ -1,7 +1,7 @@
 name: threebotlogin
 description: A new Flutter project.
 
-version: 1.5.7+76
+version: 1.5.8+80
 
 environment:
   sdk: ">=2.2.2 <3.0.0"

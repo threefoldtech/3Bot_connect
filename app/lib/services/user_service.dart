@@ -134,7 +134,7 @@ Future<void> removeEmail() async {
 Future<void> saveEmail(String email, String signedEmailIdentifier) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('email');
-  prefs.setString('email', email.toLowerCase().trim());
+  prefs.setString('email', email?.toLowerCase()?.trim());
 
   prefs.remove('emailVerified');
   prefs.setString('signedEmailIdentifier', signedEmailIdentifier);
@@ -145,7 +145,7 @@ Future<void> saveEmail(String email, String signedEmailIdentifier) async {
 Future<Map<String, Object>> getEmail() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   return {
-    'email': prefs.getString('email').toLowerCase().trim(),
+    'email': prefs.getString('email')?.toLowerCase()?.trim(),
     'sei': prefs.getString('signedEmailIdentifier')
   };
 }
