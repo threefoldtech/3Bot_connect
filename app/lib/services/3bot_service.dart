@@ -92,6 +92,19 @@ Future<Response> getUserInfo(doubleName) {
   return http.get('$threeBotApiUrl/users/$doubleName', headers: requestHeaders);
 }
 
+
+Future<Response> migrateToGridVerification(String doubleName, String publicKey, String email, String sei) {
+  return http.post('$threeBotApiUrl/grid/migrate',
+      body: json.encode(
+        {
+          'doubleName': doubleName,
+          'publicKey': publicKey,
+          'email': email,
+          'sei': sei
+        }),
+      headers: requestHeaders);
+}
+
 Future<Response> updateDeviceID(String doubleName, String signedDeviceId) {
   return http.post('$threeBotApiUrl/users/$doubleName/deviceid',
       body: json.encode({'signed_device_id': signedDeviceId}),

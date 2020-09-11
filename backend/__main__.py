@@ -322,6 +322,25 @@ def save_derived_public_key():
         return Response("something went wrong", status=400)
 
 
+@app.route("/api/grid/migrate", methods=["POST"])
+def migrate_to_grid():
+    body = request.get_json()
+
+    double_name = body["doubleName"].lower()
+    public_key = body["publicKey"]
+    email = body["email"]
+    sei = body["sei"]
+
+    try:
+        logger.debug("double_name %s", double_name)
+        logger.debug("public_key %s", public_key)
+        logger.debug("email %s", email)
+        logger.debug("sei %s", sei)
+        return Response("something went wrong", status=400)
+    except Exception as e:
+        logger.debug("Something went wrong %s", e)
+        return Response("something went wrong", status=400)
+
 @app.route("/api/minimumversion", methods=["get"])
 def minimum_version_handler():
     response = app.response_class(

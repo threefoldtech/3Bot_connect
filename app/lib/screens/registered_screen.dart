@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'package:threebotlogin/helpers/migration_status.dart';
+import 'package:threebotlogin/services/3bot_service.dart';
+import 'package:threebotlogin/services/user_service.dart';
 
 class RegisteredScreen extends StatefulWidget {
   static final RegisteredScreen _singleton = new RegisteredScreen._internal();
@@ -61,6 +65,29 @@ class _RegisteredScreenState extends State<RegisteredScreen>
             ),
           ],
         ),
+        RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30),
+                        ),
+                        color: Theme.of(context).primaryColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Icon(
+                              Icons.cloud_upload,
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: 10.0),
+                            Text(
+                              'Migrate to grid',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          migrateToGrid();
+                        },
+                      ),
         Column(
           children: <Widget>[
             Column(
@@ -78,6 +105,47 @@ class _RegisteredScreenState extends State<RegisteredScreen>
         ),
       ],
     );
+  }
+
+  void migrateToGrid() async {
+    MigrationStatus currentMigrationStatus = (await getMigrationStatus());
+
+    print('currentMigrationStatus: $currentMigrationStatus');
+
+    if(currentMigrationStatus == MigrationStatus.registered) {
+      return;
+    }
+
+    String doubleName = await getDoubleName();
+    Map<String, Object> emailMap = await getEmail();
+
+
+    print('doubleName: $doubleName');
+    print('emailMap: $emailMap');
+    print('emailMap: $emailMap');
+
+    if (doubleName == null || emailMap['email'] == null) {
+      return;
+    }
+
+    try {
+      String publicKey = await getPublicKey();
+      Response gridMigrationResponse = await migrateToGridVerification(doubleName, publicKey, emailMap['email'], emailMap['sei']);
+
+      print('gridMigrationResponse.statusCode: ${gridMigrationResponse.statusCode}');
+
+      if(gridMigrationResponse.statusCode == 200) {
+        setMigrationStatus(MigrationStatus.registered);
+        return;
+      }
+
+      if(gridMigrationResponse.statusCode != 200) {
+        setMigrationStatus(MigrationStatus.registration_error); 
+        // Separate email from doubleName error here? 
+      }
+    } catch (_) {
+      setMigrationStatus(MigrationStatus.registration_failed);
+    }
   }
 
   void updatePreference(bool preference) {

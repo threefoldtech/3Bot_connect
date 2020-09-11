@@ -1,10 +1,14 @@
 //import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'package:threebotlogin/helpers/migration_status.dart';
 import 'package:threebotlogin/screens/change_pin_screen.dart';
 import 'package:threebotlogin/screens/mobile_registration_screen.dart';
 import 'package:threebotlogin/screens/recover_screen.dart';
 import 'package:threebotlogin/screens/successful_screen.dart';
+import 'package:threebotlogin/services/3bot_service.dart';
+import 'package:threebotlogin/services/user_service.dart';
 
 class UnregisteredScreen extends StatefulWidget {
   UnregisteredScreen();
@@ -119,7 +123,6 @@ class _UnregisteredScreenState extends State<UnregisteredScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Icon(
-//                              CommunityMaterialIcons.account_edit,
                               Icons.mode_edit,
                               color: Colors.white,
                             ),
@@ -143,7 +146,6 @@ class _UnregisteredScreenState extends State<UnregisteredScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Icon(
-//                              CommunityMaterialIcons.backup_restore,
                               Icons.settings_backup_restore,
                               color: Colors.white,
                             ),

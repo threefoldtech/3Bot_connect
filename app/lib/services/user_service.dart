@@ -4,8 +4,24 @@ import 'dart:core';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:threebotlogin/helpers/globals.dart';
+import 'package:threebotlogin/helpers/migration_status.dart';
 import 'package:threebotlogin/services/3bot_service.dart';
 import 'package:threebotlogin/services/crypto_service.dart';
+
+
+Future<void> setMigrationStatus(MigrationStatus migrationStatus) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('migrationStatus', migrationStatus.toString());
+}
+
+Future<MigrationStatus> getMigrationStatus() async {
+  try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return MigrationStatus.values.firstWhere((type) => type.toString() == prefs.getString('migrationStatus'));
+  } catch (_) {
+    return MigrationStatus.unknown;
+  }
+}
 
 Future<void> savePin(pin) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
