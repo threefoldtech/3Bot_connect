@@ -70,11 +70,11 @@ export default {
       setInterval(() => {
         console.log("Checking for availability and if username is set.")
         if(this.$route.query.username 
-          && !nameCheckStatus.checking 
-          && nameCheckStatus.checked 
-          && !nameCheckStatus.available) {
+          && !this.nameCheckStatus.checking 
+          && this.nameCheckStatus.checked 
+          && !this.nameCheckStatus.available) {
             console.log("Lets automaticly continue because we have username in our query parameter.")
-            login();
+            this.login();
         }
       }, 250);
     }
