@@ -67,16 +67,18 @@ export default {
     } else {
       this.doubleName = this.$route.query.username;
       this.checkNameAvailability()
-      setInterval(() => {
-        console.log("Checking for availability and if username is set.")
-        if(this.$route.query.username 
-          && !this.nameCheckStatus.checking 
-          && this.nameCheckStatus.checked 
-          && !this.nameCheckStatus.available) {
-            console.log("Lets automaticly continue because we have username in our query parameter.")
-            this.login();
-        }
-      }, 250);
+      if (!this.isMobile) {
+        setInterval(() => {
+          console.log("Checking for availability and if username is set.")
+          if(this.$route.query.username 
+            && !this.nameCheckStatus.checking 
+            && this.nameCheckStatus.checked 
+            && !this.nameCheckStatus.available) {
+              console.log("Lets automaticly continue because we have username in our query parameter.")
+              this.login();
+          }
+        }, 250);
+      }
     }
     this.firstvisit = !cookies.get('firstvisit')
     if (this.firstvisit) {
