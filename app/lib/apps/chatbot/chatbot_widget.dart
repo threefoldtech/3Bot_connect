@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/apps/chatbot/chatbot_config.dart';
 import 'package:threebotlogin/browser.dart';
 import 'package:threebotlogin/clipboard_hack/clipboard_hack.dart';
+import 'package:threebotlogin/widgets/layout_drawer.dart';
 
 class ChatbotWidget extends StatefulWidget {
   final String email;
@@ -23,9 +24,9 @@ class _ChatbotState extends State<ChatbotWidget>
 
   _ChatbotState({this.email}) {
     iaWebview = InAppWebView(
-      initialUrl: '${config.url()}$email&cache_buster=' +
-          new DateTime.now().millisecondsSinceEpoch.toString(),
-      initialHeaders: {},
+      initialUrlRequest: URLRequest(url:Uri.parse('${config.url()}$email&cache_buster=' +
+          new DateTime.now().millisecondsSinceEpoch.toString())),
+
       initialOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true),
           android: AndroidInAppWebViewOptions(supportMultipleWindows: true)),
@@ -33,18 +34,17 @@ class _ChatbotState extends State<ChatbotWidget>
         webView = controller;
       },
       onCreateWindow:
-          (InAppWebViewController controller, CreateWindowRequest req) {
-        inAppBrowser.openUrl(url: req.url, options: InAppBrowserClassOptions());
+           (InAppWebViewController controller, CreateWindowAction req) {
+
+        inAppBrowser.openUrlRequest(urlRequest: req.request, options: InAppBrowserClassOptions());
 
       },
       onConsoleMessage:
           (InAppWebViewController controller, ConsoleMessage consoleMessage) {
         print("CB console: " + consoleMessage.message);
       },
-      onLoadStart: (InAppWebViewController controller, String url) {},
-      onLoadStop: (InAppWebViewController controller, String url) async {
-       // await addClipboardHack(controller);
-      },
+      onLoadStart: (InAppWebViewController controller, Uri url) {},
+      onLoadStop: (InAppWebViewController controller, Uri url) async {},
       onProgressChanged: (InAppWebViewController controller, int progress) {},
     );
   }
@@ -62,13 +62,13 @@ class _ChatbotState extends State<ChatbotWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
+    return LayoutDrawer(titleText: 'Support', content: Column(
       children: <Widget>[
         Expanded(
           child: Container(child: iaWebview),
         ),
       ],
-    );
+    ));
   }
 
   @override

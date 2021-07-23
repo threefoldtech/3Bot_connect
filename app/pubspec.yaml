@@ -1,12 +1,12 @@
 name: threebotlogin
 description: A decentralized login application
 
-publish_to: 'none'
+publish_to: "none"
 
-version: 2.5.0+114
+version: 3.0.0+130
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   gson: ^0.1.4
@@ -21,28 +21,28 @@ dependencies:
   uni_links:
     git:
       url: https://github.com/jimbertools/uni_links
-  flutter_inappwebview: ^4.0.0+4
+  flutter_inappwebview: ^5.2.0
   keyboard_visibility:
     git:
       url: https://github.com/jimbertools/flutter_keyboard_visibility
   redirection:
     git:
       url: https://github.com/jimbertools/redirection
-  flutter_svg:
+  yggdrasil_plugin:
+    git:
+      url: https://github.com/threefoldtech/yggdrasil_flutter
+  flutter_svg: ^0.19.3
   crypto: ^2.1.5
   bip39: ^1.0.3
   uuid: ^2.2.0
-  socket_io_client: ^0.9.11
+  socket_io_client: ^1.0.1
   local_auth: ^0.6.3+1
   url_launcher: ^5.7.10
-  # firebase_core: ^0.4.0+9
-  # firebase_messaging: ^6.0.16
   intl: ^0.16.1
   password_hash: ^2.0.0
   shared_preferences: ^0.5.8
   http: ^0.12.2
   package_info: ^0.4.1
-#  community_material_icon: ^5.3.45
   cupertino_icons: ^0.1.3
   google_fonts: ^1.1.1
   international_phone_input: ^1.0.4

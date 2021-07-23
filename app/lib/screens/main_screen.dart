@@ -68,7 +68,8 @@ class _AppState extends State<MainScreen> {
       bool accepted = false;
       while (!accepted) {
         accepted = !(await Navigator.push(
-            context, MaterialPageRoute(builder: (context) => init)) == null);
+                context, MaterialPageRoute(builder: (context) => init)) ==
+            null);
       }
     }
 
@@ -183,7 +184,7 @@ class _AppState extends State<MainScreen> {
       CustomDialog dialog = CustomDialog(
           title: "Connection problem",
           description:
-              "The connection to our servers has failed, please try again later.");
+              "The connection to our servers has failed, please try again later. 2");
       await dialog.show(context);
       if (Platform.isAndroid) {
         SystemNavigator.pop();
@@ -223,7 +224,7 @@ class _AppState extends State<MainScreen> {
       CustomDialog dialog = CustomDialog(
           title: "Connection problem",
           description:
-              "The connection to our servers has failed, please try again later.");
+              "The connection to our servers has failed, please try again later. 3");
       await dialog.show(context);
       if (Platform.isAndroid) {
         SystemNavigator.pop();

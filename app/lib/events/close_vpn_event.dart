@@ -1,0 +1,3 @@
+class CloseVpnEvent {
+  CloseVpnEvent();
+}

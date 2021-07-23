@@ -56,8 +56,8 @@ setConfigsAndBuild() {
 msgTelegram () {
     mv build/app/outputs/apk/release/app-release.apk "build/app/outputs/apk/release/$githash-TF-Connect-$1-$current_time.apk"
     
-    curl -s -X POST "https://api.telegram.org/bot868129294:AAGLGOySYvJJxvIcMHY3XHFaPEPq2MpdGys/sendMessage" -d parse_mode=markdown -d chat_id=-1001186043363 -d parse_mode=markdown -d text="Type: *$1* %0AGit user: *$gituser* %0AGit branch: *$gitbranch* %0AGit hash: *$githash* %0ATime: *$logcurrent_time* %0AMessage: *$2*"
-    curl -s -X POST "https://api.telegram.org/bot868129294:AAGLGOySYvJJxvIcMHY3XHFaPEPq2MpdGys/sendDocument" -F chat_id=-1001186043363 -F document="@build/app/outputs/apk/release/$githash-TF-Connect-$1-$current_time.apk"
+    curl --http1.1 -s -X POST "https://api.telegram.org/bot868129294:AAEd-UDDSru9zGeGklzWL6mPO33NovuXYqo/sendMessage" -d parse_mode=markdown -d chat_id=-1001186043363 -d parse_mode=markdown -d text="Type: *$1* %0AGit user: *$gituser* %0AGit branch: *$gitbranch* %0AGit hash: *$githash* %0ATime: *$logcurrent_time* %0AMessage: *$2*"
+    curl --http1.1 -s -X POST "https://api.telegram.org/bot868129294:AAEd-UDDSru9zGeGklzWL6mPO33NovuXYqo/sendDocument" -F chat_id=-1001186043363 -F document="@build/app/outputs/apk/release/$githash-TF-Connect-$1-$current_time.apk"
     
     paplay /usr/share/sounds/gnome/default/alerts/glass.ogg
 }

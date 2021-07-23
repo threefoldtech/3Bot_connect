@@ -27,8 +27,8 @@ class _InitState extends State<InitScreen> {
 
   _InitState() {
     iaWebView = InAppWebView(
-      initialUrl: AppConfig().wizardUrl() + '?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString(),
-      initialHeaders: {},
+      initialUrlRequest: URLRequest(url:Uri.parse(AppConfig().wizardUrl() + '?cache_buster=' + new DateTime.now().millisecondsSinceEpoch.toString())),
+
       initialOptions: InAppWebViewGroupOptions(
         android: AndroidInAppWebViewOptions(supportMultipleWindows: true),
       ),
@@ -37,9 +37,9 @@ class _InitState extends State<InitScreen> {
         addHandler();
       },
       onCreateWindow:
-          (InAppWebViewController controller, CreateWindowRequest req) {},
-      onLoadStart: (InAppWebViewController controller, String url) {},
-      onLoadStop: (InAppWebViewController controller, String url) async {},
+          (InAppWebViewController controller, CreateWindowAction req) {},
+      onLoadStart: (InAppWebViewController controller, Uri url) {},
+      onLoadStop: (InAppWebViewController controller, Uri url) async {},
       onProgressChanged: (InAppWebViewController controller, int progress) {},
     );
   }

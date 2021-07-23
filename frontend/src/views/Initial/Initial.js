@@ -57,11 +57,26 @@ export default {
     }
     console.log(this.$route)
     this.setAttemptCanceled(false)
-    var tempName = localStorage.getItem('username')
-    if (tempName) {
-      console.log(`Got tempName`, tempName)
-      this.doubleName = tempName.split('.')[0]
+    if(!this.$route.query.username) {
+      var tempName = localStorage.getItem('username')
+      if (tempName) {
+        console.log(`Got tempName`, tempName)
+        this.doubleName = tempName.split('.')[0]
+        this.checkNameAvailability()
+      }
+    } else {
+      this.doubleName = this.$route.query.username;
       this.checkNameAvailability()
+      setInterval(() => {
+        console.log("Checking for availability and if username is set.")
+        if(this.$route.query.username 
+          && !nameCheckStatus.checking 
+          && nameCheckStatus.checked 
+          && !nameCheckStatus.available) {
+            console.log("Lets automaticly continue because we have username in our query parameter.")
+            login();
+        }
+      }, 250);
     }
     this.firstvisit = !cookies.get('firstvisit')
     if (this.firstvisit) {

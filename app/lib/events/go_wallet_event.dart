@@ -1,0 +1,3 @@
+class GoWalletEvent {
+  GoWalletEvent();
+}

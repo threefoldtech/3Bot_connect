@@ -49,6 +49,17 @@ Future<Response> sendPublicKey(Map<String, Object> data) async {
       body: json.encode(data), headers: loginRequestHeaders);
 }
 
+Future<Response> sendProductReservation(Map<String, Object> data) async {
+  String privatekey = await getPrivateKey();
+  String doubleName = await getDoubleName();
+
+  String signedData = await signData(jsonEncode(data), privatekey);
+
+  var body = json.encode({"doubleName": doubleName, "data": signedData});
+  return await http.put('$threeBotApiUrl/digitaltwin/productkey',
+      body: body, headers: {'Content-type': 'application/json'});
+}
+
 Future<bool> isAppUpToDate() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
@@ -72,10 +83,10 @@ Future<bool> isAppUpToDate() async {
 
 Future<bool> isAppUnderMaintenance() async {
   Response response = await http
-          .get('$threeBotApiUrl/maintenance', headers: requestHeaders)
-          .timeout(const Duration(seconds: 3));
+      .get('$threeBotApiUrl/maintenance', headers: requestHeaders)
+      .timeout(const Duration(seconds: 3));
 
-  if(response.statusCode != 200) {
+  if (response.statusCode != 200) {
     return false;
   }
 
@@ -103,8 +114,8 @@ Future<Response> removeDeviceId(String deviceId) {
       headers: requestHeaders);
 }
 
-Future<Response> finishRegistration(String doubleName, String email, String sid,
-    String publicKey) async {
+Future<Response> finishRegistration(
+    String doubleName, String email, String sid, String publicKey) async {
   return http.post('$threeBotApiUrl/mobileregistration',
       body: json.encode({
         'doubleName': doubleName + '.3bot',
@@ -114,3 +125,43 @@ Future<Response> finishRegistration(String doubleName, String email, String sid,
       }),
       headers: requestHeaders);
 }
+
+Future<Response> getReservations(String doubleName) {
+  print('$threeBotApiUrl/digitaltwin/reserve/$doubleName');
+  return http.get('$threeBotApiUrl/digitaltwin/reserve/$doubleName',
+      headers: requestHeaders);
+}
+
+Future<Response> getProductKeys(String doubleName) {
+  print('$threeBotApiUrl/digitaltwin/productkey/$doubleName');
+  return http.get('$threeBotApiUrl/digitaltwin/productkey/$doubleName',
+      headers: requestHeaders);
+}
+
+Future<Response> getReservationDetails(String doubleName) {
+  print('$threeBotApiUrl/digitaltwin/reservation_details/$doubleName');
+  return http.get('$threeBotApiUrl/digitaltwin/reservation_details/$doubleName',
+      headers: requestHeaders);
+}
+
+Future<Response> activateDigitalTwin(String doubleName, String productKey) async{
+  Object jsonObject = {'doubleName' : doubleName, 'productKey': productKey};
+  String privateKey = await getPrivateKey();
+  String signedData = await signData(jsonEncode(jsonObject), privateKey);
+
+  var body = json.encode({"doubleName": doubleName, "data": signedData});
+  print(body);
+  return await http.post('$threeBotApiUrl/digitaltwin/productkey/activate',
+      body: body, headers: {'Content-type': 'application/json'});
+}
+
+// // TODO Please remove this function, it's only for testing
+// Future<Response> postReservations(String doubleName, String reservingFor) {
+//   print('$threeBotApiUrl/digitaltwin/$doubleName/reservations');
+//   return http.post('$threeBotApiUrl/digitaltwin/$doubleName/reservations',
+//       body: {
+//         'tx': 'bla',
+//         'ReservingUser': doubleName,
+//         'ReservedDigitaltwin': reservingFor
+//       });
+// }

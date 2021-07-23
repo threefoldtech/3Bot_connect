@@ -1,5 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:threebotlogin/helpers/globals.dart';
+import 'package:threebotlogin/helpers/vpn_state.dart';
+import 'package:threebotlogin/services/user_service.dart';
+import 'package:threebotlogin/widgets/layout_drawer.dart';
+import 'package:yggdrasil_plugin/yggdrasil_plugin.dart';
+import 'package:flutter/services.dart';
 
 class RegisteredScreen extends StatefulWidget {
   static final RegisteredScreen _singleton = new RegisteredScreen._internal();
@@ -24,7 +32,8 @@ class _RegisteredScreenState extends State<RegisteredScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return LayoutDrawer(titleText: 'Home', content:
+     Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         SizedBox(height: 10.0),
@@ -45,7 +54,8 @@ class _RegisteredScreenState extends State<RegisteredScreen>
               height: 200.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage('assets/threefold_registered.png')),
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/threefold_registered.png')),
               ),
             ),
           ],
@@ -53,13 +63,12 @@ class _RegisteredScreenState extends State<RegisteredScreen>
         Column(
           children: <Widget>[
             Column(
-              children: <Widget>[
-              ],
+              children: <Widget>[],
             ),
           ],
         ),
       ],
-    );
+    ));
   }
 
   void updatePreference(bool preference) {

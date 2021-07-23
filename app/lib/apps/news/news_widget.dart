@@ -5,6 +5,7 @@ import 'package:threebotlogin/apps/news/news_events.dart';
 import 'package:threebotlogin/clipboard_hack/clipboard_hack.dart';
 import 'package:threebotlogin/events/events.dart';
 import 'package:threebotlogin/events/go_home_event.dart';
+import 'package:threebotlogin/widgets/layout_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool created = false;
@@ -18,15 +19,15 @@ class _NewsState extends State<NewsWidget>
     with AutomaticKeepAliveClientMixin {
   InAppWebViewController webView;
   String url = "";
+  String initialEndsWith= "";
   double progress = 0;
   var config = NewsConfig();
   InAppWebView iaWebView;
 
   _back(NewsBackEvent event) async {
-    String url = await webView.getUrl();
-    String endsWith = 'news.threefoldconnect.jimber.org/';
-    print(url);
-    if (url.endsWith(endsWith)) {
+    Uri url = await webView.getUrl();
+    print("URL: " + url.toString());
+    if (url.toString().endsWith(initialEndsWith)) {
       Events().emit(GoHomeEvent());
       return;
     }
@@ -34,12 +35,13 @@ class _NewsState extends State<NewsWidget>
   }
 
   _NewsState() {
+    this.initialEndsWith =  new DateTime.now().millisecondsSinceEpoch.toString();
     iaWebView = InAppWebView(
-      initialUrl: 'https://news.threefoldconnect.jimber.org?cache_buster=' +
-          new DateTime.now().millisecondsSinceEpoch.toString(),
-      initialHeaders: {},
+      initialUrlRequest: URLRequest(url:Uri.parse('https://news.threefoldconnect.jimber.org?cache_buster=' + initialEndsWith
+         )),
+
       initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(debuggingEnabled: true),
+          crossPlatform: InAppWebViewOptions(),
           android: AndroidInAppWebViewOptions(
               supportMultipleWindows: true, thirdPartyCookiesEnabled: true),
           ios: IOSInAppWebViewOptions()),
@@ -47,10 +49,12 @@ class _NewsState extends State<NewsWidget>
         webView = controller;
       },
       onCreateWindow:
-          (InAppWebViewController controller, CreateWindowRequest req) async {
-        await launch(req.url);
+          (InAppWebViewController controller, CreateWindowAction req) async {
+        await launch(req.request.url.toString());
+
+        return true;
       },
-      onLoadStop: (InAppWebViewController controller, String url) async {
+      onLoadStop: (InAppWebViewController controller, Uri url) async {
         addClipboardHandlersOnly(controller);
       },
       onProgressChanged: (InAppWebViewController controller, int progress) {
@@ -74,13 +78,14 @@ class _NewsState extends State<NewsWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
+    return LayoutDrawer(titleText: 'News', content:
+    Column(
       children: <Widget>[
         Expanded(
           child: Container(child: iaWebView),
         ),
       ],
-    );
+    ));
   }
 
   @override

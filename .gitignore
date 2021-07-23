@@ -131,6 +131,10 @@ backend/__pycache__/
 backend/*.py[cod]
 backend/*$py.class
 
+
+# Pyc files
+*.pyc
+
 # C extensions
 backend/*.so
 
@@ -328,3 +332,19 @@ app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 app/android/app/src/debug/AndroidManifest.xml
 app/ios/Flutter/flutter_export_environment.sh
 app/.flutter-plugins-dependencies
+backend/routes/__pycache__/__init__.cpython-39.pyc
+backend/routes/__pycache__/crypt.cpython-39.pyc
+backend/routes/__pycache__/digitaltwin.cpython-39.pyc
+backend/routes/__pycache__/misc.cpython-39.pyc
+backend/routes/__pycache__/payment.cpython-39.pyc
+backend/routes/__pycache__/users.cpython-39.pyc
+backend/services/__pycache__/__init__.cpython-39.pyc
+backend/services/__pycache__/crypt.cpython-39.pyc
+backend/services/__pycache__/digitaltwin.cpython-39.pyc
+backend/services/__pycache__/logger.cpython-39.pyc
+backend/services/__pycache__/payment.cpython-39.pyc
+backend/services/__pycache__/productkeys.cpython-39.pyc
+backend/services/__pycache__/socket.cpython-39.pyc
+
+*.pyc
+.vscode

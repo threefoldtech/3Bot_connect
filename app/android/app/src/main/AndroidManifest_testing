@@ -17,10 +17,22 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="3Bot Testing"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
+          <service
+                    android:name="io.github.chronosx88.yggdrasil.YggdrasilTunService"
+                    android:enabled="true"
+                    android:exported="true"
+                    android:permission="android.permission.BIND_VPN_SERVICE">
+                    <intent-filter>
+                        <action android:name="android.net.VpnService" />
+                    </intent-filter>
+                </service>
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
